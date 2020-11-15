@@ -1,0 +1,42 @@
+---
+title: "Revisión Reporte 2"
+author: "Felipe Jiménez"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output: 
+  pdf_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r puntaje, include=FALSE}
+
+calif<- c(100,100,75,100)
+
+
+bonus<- 0
+
+ajuste<-8
+```
+
+**Estudiante**
+  
+- Fabian Retana
+
+*Tabla de revisión* La nota es el promedio de todos los ejercicios + bonus - ajuste.
+  
+  | Ejercicio      | Calificación | Detalle     |
+  | :----:        |    :----:   |          :--- |
+  | Cálculo de estadíticos     | `r calif[1]`       | Ok |
+  | Scatterplots | `r calif[2]`      |Ok  |
+  | Análisis | `r calif[3]`    |Favor remitirse al video de la clase 6 para el análisis y conclusiones sobre estos datasets. |
+  | RPubs | `r calif[4]`      | Ok  |
+  | Ajuste  | `r ajuste `      | No utilizaron plantilla requerida, no pusieron nombres de integrantes |
+    | Bonus  | `r bonus `      |NA|
+  | *Calificación*  | **`r round(mean(calif),2)+bonus-ajuste `**      |      |
+  
+  
+  

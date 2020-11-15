@@ -1,0 +1,285 @@
+---
+title: \vspace{3.5in}"Solución Reporte 1"
+author: "Nombre del autor"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output: 
+  html_document:
+    toc: true # table of content true
+    toc_float: true
+    toc_depth: 4  # upto three depths of headings (specified by #, ## and ###)
+    number_sections: False  ## if you want number sections at each table header
+    theme: flatty  # many options for theme, this one is my favorite.
+    highlight: tango  # specifies the syntax highlighting style
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message = F,warning = F)
+```
+
+# Instrucciones
+
+- Trabajo Individual.Ponga su nombre en el reporte o perderá los puntos.
+- Genere un documento R markdown para resolver los ejercicios.
+- En su documento R markdown, incluya como texto el enunciado del ejercicio y en el chunk incluya el código y los resultados.
+
+- Suba a classroom únicamente el documento renderizado con los las funciones requeridas y resultados (impresos en el reporte) para resolver los ejercicios.
+
+# Ejercicios
+
+## Ejercicio 1
+**- Cargue el archivo `mobility.csv.csv` proveido por el profesor en el siguiente link(Debe hacerlo directamente desde la función `read.csv`:**
+
+  https://raw.githubusercontent.com/DFJL/Datasets/master/mobility.csv
+  
+Este archivo de datos contiene data por país y por día sobre la movilidad promedio ( en cambios porcentuales) con respecto a una línea base del año 2019 en las siguientes localidades:
+
+- sitios recreacionales
+- abarrotes y farmacias
+- parques
+- paradas de transporte público
+- Lugares de trabajo
+- Lugares residenciales
+
+Puede ver los detalles e información sobre como interpretar en el siguiente link:
+
+https://www.google.com/covid19/mobility/data_documentation.html?hl=en#about-this-data
+
+**Es requerido leer esta documentación para el correcto análisis de datos del presente reporte.**
+
+## Ejercicio 2
+**- Copie y pegue el siguiente código para resumir el dataframe:**
+
+```{r load0}
+
+
+mobility <- read.csv("https://raw.githubusercontent.com/DFJL/Datasets/master/mobility.csv",sep= ",")
+
+library(dlookr)
+library(dplyr)
+
+
+```
+
+
+```{r load}
+
+library(lubridate)
+library(dplyr)
+
+#Previanmente he cargado el archivo con el nombre de mobility
+
+mobility$date <- as.Date(mobility$date, format = '%Y-%m-%d')
+
+mobility2 <- mobility %>% 
+  mutate(month= month(x = date),
+         year= year(x= date))
+
+
+```
+
+
+## Ejercicio 3
+**- Seleccione un país centroamericano y filtre los datos  mediante el campo country_region_code.Guarde el resultado en nuevo dataframe.**
+
+```{r}
+
+
+mobility2cr <- mobility2 %>% 
+  filter(country_region_code=='CR')
+
+
+```
+
+
+## Ejercicio 4
+**- Obtenga un resumen de los datos del dataframe obtenido en ejercicio anterior que indique la cantidad de observaciones, columnas y tipos de datos de las variables.**
+
+
+```{r}
+
+str(mobility2cr)
+
+```
+
+
+
+## Ejercicio 5
+**- Obtenga para todas las variables cuantitativas(numericas), las medidas de tendencia central (min,Q1,mean,median,Q3,max)  estudiadas en clase mediante alguna función estudiada en clase**
+
+
+```{r}
+
+diagnose_numeric(mobility2cr)
+
+```
+
+
+Según los resultados del ejercicio anterior responda:
+  
+### - 5.2 
+
+**Analice la mediana de todas las variables.Según esa medida, cuáles variables sufrieron mayor impacto,
+(tanto negativo como positivo) comparado con la línea base.**
+
+```{r}
+
+mobility2crb <- mobility2cr %>% 
+  select(-year,-month) %>%
+  diagnose_numeric() %>%
+  arrange(desc(abs(median))) %>%
+  select(variables,median) 
+
+mobility2crb
+
+var1<- as.character(mobility2crb$variables[1])
+var2<-  as.character(mobility2crb$variables[2])
+
+
+```
+
+**Las variables con mayor impacto(ya sea positivo o negativo) de la mediana son `r` `r paste0(var1," y ",var2) `**
+
+### - 5.3  
+**Según la media, cuáles variables tuvieron un incremento con respecto a la línea base?**
+  
+```{r}
+
+mobility2crb <- mobility2cr %>% 
+  select(-year,-month) %>%
+  diagnose_numeric() %>%
+  filter(mean>0) %>%
+  arrange(desc(abs(mean))) %>%
+  select(variables,mean) 
+
+mobility2crb
+
+var1<- as.character(mobility2crb$variables[1])
+
+
+```
+
+**La variable con mayor incremento de la media fue `r paste0(var1) `**
+
+
+## Ejercicio 6
+
+**- Utilizando una función(puede ser la utilizada en ejercicio anterior) cual variable tuvo más días( observaciones ) con valores negativos?**
+
+```{r}
+
+mobility2crb <- mobility2cr %>% 
+  select(-year,-month) %>%
+  diagnose_numeric() %>%
+  arrange(desc(abs(minus))) %>%
+  select(variables,minus) 
+
+mobility2crb
+
+var1<- as.character(mobility2crb$variables[1])
+
+
+```
+
+**La variable con mayor cantidad de días con valores negativos  fue `r paste0(var1) `**
+
+## Ejercicio 7
+
+**- Obtenga un nuevo dataframe que realice lo siguiente:**
+
+### - 7.1 
+
+**Seleccione la variable "residential_percent_change_from_baseline".**
+
+```{r}
+
+mobility2crMonth <- mobility2cr %>%
+  select(residential_percent_change_from_baseline,month)
+
+head(mobility2crMonth,10)
+
+
+```
+
+
+### - 7.2 
+
+**Agrupe por mes y obtenga la mediana de la variable seleccionada por mes.**
+
+```{r}
+
+mobility2crMonth <- mobility2crMonth %>%
+  group_by(month) %>%
+  summarise(mediana= median(residential_percent_change_from_baseline,na.rm = TRUE))
+
+
+mobility2crMonth
+```
+
+
+
+### - 7.3 
+
+**Analice el resultado anterior.**
+
+Según la mediana de los cambios de movilidad residencial por mes del 2020 con respecto al año 2019, se puede observar una tendencia creciente conforme avanzan los meses, pasando de un decrecimiento de -2% en febrero a un incremento de 23% en mayo.
+
+## Ejercicio 8
+
+**- Obtenga la distribución de frecuencias de la variable anterior para el mes de abril.**
+- ( para lo anterior cree un nuevo df filtrando por el mes de abril)
+- ( debe utilizar el dataframe creado en ejercicio 3, debido a que el anterior esta agregado)
+- Utilice la opción "pretty" y nbins=10
+
+```{r}
+
+
+mobility2crApril <- mobility2cr %>%
+  filter(month==4) 
+
+dist <- mobility2crApril %>%
+  mutate(bin= binning(mobility2crApril$residential_percent_change_from_baseline,type="pretty",nbins = 10)) %>%
+  group_by(bin) %>%
+  summarise(Freq = n()) %>%
+  mutate(relFreq = prop.table(Freq),
+         Cumulative_Freq = cumsum(Freq),
+         Cumulative_Relative_Freq = cumsum(relFreq)
+  )
+
+dist
+
+```
+
+## Ejercicio 9
+
+**- Cree el histograma de la distribución de frecuencias anterior**
+
+```{r}
+
+
+plot(binning(mobility2crApril$residential_percent_change_from_baseline,type="pretty",nbins = 10))
+
+
+```
+
+## Ejercicio 10
+
+**- Interprete la categoría con mayor frecuencia en el histograma, tanto en términos absolutos como relativos.**
+
+La categoría con mayor frecuencia es el grupo que representa los crecimientos **entre 20% y 22%**, ya que un total del **8 días**(es decir **26%** de los días) del año 2020 tuvieron un **crecimiento entre 20% y 22%** con respecto al año 2019 en cuanto a **movilidad en los lugares residenciales.**
+
+**Bonus** Genere el box plot de los datos del ejercicio 8 y 9.
+
+```{r}
+
+
+boxplotCR3<- boxplot(mobility2crApril$residential_percent_change_from_baseline,
+                     data=mobility2crApril,
+                     main="Cambio porcentual de estancia promedio residencial en abril",
+                     xlab="Mes",
+                     ylab="Cambio Porcentual",
+                     col="orange",
+                     border="brown"
+                     )
+
+```
+

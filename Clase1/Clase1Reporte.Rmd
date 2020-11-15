@@ -1,0 +1,144 @@
+---
+title: "Reporte de Clase Número 1"
+author: "Felipe Jiménez"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Instrucciones
+
+- Genere un documento R markdown para resolver los ejercicios.
+- En su documento R markdown, incluya como texto el enunciado del ejercicio y en el chunk incluya el código y los resultados.
+
+- Suba a classroom únicamente el documento renderizado con los las funciones requeridas y resultados (impresos en el reporte) para resolver los ejercicios.
+
+# Ejercicios
+
+1- Cargue el archivo `realEstatedata.csv` proveído por el profesor.Pongale el nombre que usted desee.
+
+```{r,include=FALSE}
+
+wd <- "/cloud/project/Clase1"
+setwd(wd)
+
+library(readr)
+library(dplyr)
+# Crea un nuevo objeto en R, leyendo el archivo .csv ubicado en el WD.
+df <- read.csv("realEstatedata.csv",sep = ";") %>%
+  mutate(precio= ifelse(precio>5000000,precio/610,precio))
+
+glimpse(df)
+
+write_delim(df,"realEstatedata2.csv",delim = ";")
+
+```
+
+
+2- Obtenga una muestra aleatoria de 50 propiedades y guardelo en un nuevo dataframe.
+
+```{r, include=FALSE}
+
+library(dplyr)
+
+dfMuestra <- df %>% 
+  sample_n(size = 50)
+
+dfMuestra
+
+```
+
+
+Escoja entre las variables *precio* y *m2_de_construccion* y realice lo siguiente:
+
+3- Obtenga la media de esas variables de ambos dataframes y compare los valores.
+
+```{r media,include=FALSE}
+
+MediaPrecio<- mean(df$precio,na.rm = T)
+
+MediaSize<- mean(df$m2_de_construccion,na.rm = T)
+
+MediaPrecio;MediaSize
+
+# Muestras
+MediaPrecioM<- mean(dfMuestra$precio,na.rm = T)
+
+MediaSizeM<- mean(dfMuestra$m2_de_construccion,na.rm = T)
+
+MediaPrecioM;MediaSizeM
+
+
+
+
+```
+
+
+4- Obtenga la mediana de esas variables  de ambos dataframes y compare los valores.
+
+```{r mediana,include=FALSE}
+
+MedianaPrecio<- median(df$precio,na.rm = T)
+
+MedianaSize<- median(df$m2_de_construccion,na.rm = T)
+
+MedianaPrecio;MedianaSize
+
+# Muestras
+MedianaPrecioM<- median(dfMuestra$precio,na.rm = T)
+
+MedianaSizeM<- median(dfMuestra$m2_de_construccion,na.rm = T)
+
+MedianaPrecioM;MedianaSizeM
+
+
+
+
+```
+
+5- Investigue como obtener los valores máximos y mínimos y calculelos(solamente del dataframe original).
+
+```{r maxMin,include=FALSE}
+
+MaxPrecio<- max(df$precio,na.rm = T)
+
+MaxSize<- max(df$m2_de_construccion,na.rm = T)
+
+MaxPrecio;MaxSize
+
+#Minimo
+
+MinPrecio<- min(df$precio,na.rm = T)
+
+MinSize<- min(df$m2_de_construccion,na.rm = T)
+
+MinPrecio;MinSize
+
+
+
+
+```
+
+
+
+6- Calcule el cuartil de ambos dataframes.
+
+```{r tiles2,include=FALSE}
+
+#Quintiles
+
+cuartilesPrecio<-  quantile(x = df$precio,probs = c(.25,.5,.75),na.rm = TRUE) 
+cuartilesSize<-  quantile(x = df$m2_de_construccion,probs = c(.25,.5,.75),na.rm = TRUE) 
+
+
+cuartilesPrecio
+cuartilesSize
+
+
+```
+

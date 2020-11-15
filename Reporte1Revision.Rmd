@@ -1,0 +1,48 @@
+---
+title: "Revisión Reporte 1"
+author: "Felipe Jiménez"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output: 
+  pdf_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r puntaje, include=FALSE}
+
+calif<- c(100,100,100,100,100,100,100,50,100,100)
+
+
+bonus<- 3
+
+ajuste<-0
+```
+
+**Estudiante**
+  
+- Roger Morales
+
+*Tabla de revisión* La nota es el promedio de todos los ejercicios + bonus - ajuste.
+  
+  | Ejercicio      | Calificación | Detalle     |
+  | :----:        |    :----:   |          :--- |
+  | 1     | `r calif[1]`       | Ok |
+  | 2 | `r calif[2]`      |Ok  |
+  | 3  | `r calif[3]`    | Ok |
+  | 4 | `r calif[4]`      | Ok  |
+  | 5 | `r calif[5]`      | Ok  |
+  | 6 | `r calif[6]`      | Ok |
+  | 7 | `r calif[7]`      |Ok|
+  | 8 | `r calif[8]`      | Solo hizo el binning|
+  | 9 | `r calif[9]`      | Ok  |
+  | 10 | `r calif[10]`      |Ok|
+  | Ajuste  | `r ajuste `      | NA |
+    | Bonus  | `r bonus `      |Boxplot mas aplicado.Sin embargo, le doy bonus por análisis adicional de dias de la semana , auqnue no es estrictamente necesario ya que los datos se supone ya están normalizdos.|
+  | *Calificación*  | **`r round(mean(calif),2)+bonus-ajuste `**      |      |
+  
+  
+  

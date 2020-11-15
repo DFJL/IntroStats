@@ -1,0 +1,47 @@
+---
+  title: "Revisión tarea 1"
+author: "Felipe Jiménez"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output: 
+  pdf_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r puntaje, include=FALSE}
+
+calif<- c(100,100,50,50,100,100)
+
+bonus<- 0
+
+ajuste<-5
+
+```
+
+**Estudiantes**
+  
+- Maria Jose Arce, 
+- Carlos Gonzalez, 
+- Carolina Solano,
+- Daniel Ramirez, 
+- Mercedes Rivera
+
+*Tabla de revisión*
+  
+  | Ejercicio      | Calificación | Detalle     |
+  | :----:        |    :----:   |          :--- |
+  | 1     | `r calif[1]`       | Ok  |
+  | 2 | `r calif[2]`      | Ok     |
+  | 3  | `r calif[3]`    | No hacen lo solicitado y que además brinde tiempo adicional para corregir.  |
+  | 4 | `r calif[4]`      | No hacen lo solicitado y que además brinde tiempo adicional para corregir.     |
+  | 5     | `r calif[5]`       | Ok   |
+  | 6     | `r calif[5]`       | Ok   |
+  | Ajuste  | `r ajuste `      |  Entrega fuera de plazo.    |
+  | *Calificación*  | **`r mean(calif)+bonus-ajuste `**      |      |
+  
+  
+  

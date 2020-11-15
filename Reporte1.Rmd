@@ -1,0 +1,168 @@
+---
+title: "Reporte 1 Estadística"
+author: "Felipe Jiménez"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Instrucciones
+
+- Trabajo Individual.Ponga su nombre en el reporte o perderá los puntos.
+- Genere un documento R markdown para resolver los ejercicios.
+- En su documento R markdown, incluya como texto el enunciado del ejercicio y en el chunk incluya el código y los resultados.
+
+- Suba a classroom únicamente el documento renderizado con los las funciones requeridas y resultados (impresos en el reporte) para resolver los ejercicios.
+
+# Ejercicios
+
+1- Cargue el archivo `mobility.csv.csv` proveido por el profesor en el siguiente link(Debe hacerlo directamente desde la función `read.csv`:
+
+  https://raw.githubusercontent.com/DFJL/Datasets/master/mobility.csv
+  
+Este archivo de datos contiene data por país y por día sobre la movilidad promedio ( en cambios porcentuales) con respecto a una línea base del año 2019 en las siguientes localidades:
+
+- sitios recreacionales
+- abarrotes y farmacias
+- parques
+- paradas de transporte público
+- Lugares de trabajo
+- Lugares residenciales
+
+Puede ver los detalles e información sobre como interpretar en el siguiente link:
+
+https://www.google.com/covid19/mobility/data_documentation.html?hl=en#about-this-data
+
+**Es requerido leer esta documentación para el correcto análisis de datos del presente reporte.**
+
+2- Copie y pegue el siguiente código para resumir el dataframe:
+
+```{r load0,eval=FALSE,include=FALSE}
+
+
+mobility <- read.csv("https://raw.githubusercontent.com/DFJL/Datasets/master/mobility.csv",sep= ",")
+
+
+
+```
+
+
+```{r load,eval=FALSE}
+
+library(lubridate)
+library(dplyr)
+
+#Previanmente he cargado el archivo con el nombre de mobility
+
+mobility$date <- as.Date(mobility$date, format = '%Y-%m-%d')
+
+mobility2 <- mobility %>% 
+  mutate(month= month(x = date),
+         year= year(x= date))
+
+
+```
+
+
+3- Seleccione un país centroamericano y filtre los datos  mediante el campo country_region_code.Guarde el resultado en nuevo dataframe.
+
+```{r,eval=FALSE,include=FALSE}
+
+
+mobility2cr <- mobility2 %>% 
+  filter(country_region_code=='CR')
+
+
+```
+
+
+4- Obtenga un resumen de los datos del dataframe obtenido en ejercicio anterior que indique la cantidad de observaciones, columnas y tipos de datos de las variables.
+
+
+```{r,eval=FALSE,include=FALSE}
+
+str(mobility2cr)
+
+```
+
+
+
+5- Obtenga para todas las variables cuantitativas(numericas), las medidas de tendencia central (min,Q1,mean,median,Q3,max)  estudiadas en clase mediante alguna función estudiada en clase
+
+
+```{r,eval=FALSE,include=FALSE}
+
+diagnose_numeric(mobility2cr)
+
+```
+
+
+Según los resultados del ejercicio anterior responda:
+  
+- 5.2 Analice la mediana de todas las variables.Según esa medida, cuáles variables sufrieron mayor impacto,
+(tanto negativo como positivo) comparado con la línea base.
+
+- 5.3  Según la media, cuáles variables tuvieron un incremento con respecto a la línea base?
+  
+
+6- Utilizando una función(puede ser la utilizada en ejercicio anterior) cual variable tuvo más días( observaciones ) con valores negativos?
+
+7- Obtenga un nuevo dataframe que realice lo siguiente:
+
+- 7.1 Seleccione la variable "residential_percent_change_from_baseline".
+- 7.2 Agrupe por mes y obtenga la mediana de la variable seleccionada por mes.
+- 7.3 Analice el resultado anterior.
+
+```{r,eval=FALSE,include=FALSE}
+
+mobility2crMonth <- mobility2cr %>%
+  group_by(month) %>%
+  summarise(mediana= median(residential_percent_change_from_baseline,na.rm = TRUE))
+
+mobility2crMonth
+
+
+```
+
+8- Obtenga la distribución de frecuencias de la variable anterior para el mes de abril.
+- ( para lo anterior cree un nuevo df filtrando por el mes de abril)
+- ( debe utilizar el dataframe creado en ejercicio 3, debido a que el anterior esta agregado)
+- Utilice la opción "pretty" y nbins=10
+
+```{r,eval=FALSE,include=FALSE}
+
+
+mobility2crApril <- mobility2cr %>%
+  filter(month==4) 
+
+dist <- mobility2crApril %>%
+  mutate(bin= binning(mobility2crApril$residential_percent_change_from_baseline,type="pretty",nbins = 10)) %>%
+  group_by(bin) %>%
+  summarise(Freq = n()) %>%
+  mutate(relFreq = prop.table(Freq),
+         Cumulative_Freq = cumsum(Freq),
+         Cumulative_Relative_Freq = cumsum(relFreq)
+  )
+
+dist
+
+```
+
+9- Cree el histograma de la distribución de frecuencias anterior
+
+```{r,eval=FALSE,include=FALSE}
+
+
+plot(binning(mobility2crApril$residential_percent_change_from_baseline,type="pretty",nbins = 10))
+
+
+```
+
+10- Interprete la categoría con mayor frecuencia en el histograma, tanto en términos absolutos como relativos.
+
+**Bonus** Genere el box plot de los datos del ejercicio 8 y 9.

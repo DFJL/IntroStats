@@ -1,0 +1,63 @@
+---
+title: "Reporte 2 Estadística"
+author: "Felipe Jiménez"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Instrucciones
+
+- Trabajo en parejas.Pongan sus nombres en el reporte o perderá los puntos.
+- Publique el documento renderizado en Rpubs y comparta solo el link con el profesor.
+- En su documento R markdown, incluya como texto el enunciado del ejercicio y en el chunk incluya el código y los resultados.
+
+# Ejercicios
+
+1- Cargue el archivo `titanic.csv` proveído por el profesor en el siguiente link(Debe hacerlo directamente desde la función `read.csv`:
+
+https://raw.githubusercontent.com/DFJL/Datasets/master/titanic.csv
+  
+Este archivo de datos contiene data relativa al titanic, personas que lograron sobrevivir o no y sus características.
+
+Puede ver los detalles e información sobre como interpretar en el siguiente link:
+
+https://www.kaggle.com/c/titanic/data
+
+**Es requerido leer esta documentación para el correcto análisis de datos del presente reporte.**
+
+Básicamente, ustedes deben realizar un Análisis Exploratorio de datos, enfocandolo en la siguiente pregunta:
+
+- **Cuáles factores influyeron en mayor medida en que una persona sobreviviera o falleciera en el Titanic?**
+
+Como mínimo su análisis debe contener las siguientes estructuras:
+
+- Análisis de la estructura de los datos.
+- Diagnóstico de limpieza de los datos ( valores nulos, extremos, negativos, ceros ).
+- Diagnóstico estadístico de variables numéricas.
+- Diagnóstico estadístico de variables cualitativas.
+- Análisis bivariado basado en variable objetivo (Debe mostrar **al menos** el cruce de la variable objetivo contra 2 variables mas).
+- Conclusiones ( con respecto a la pregunta planteada).
+
+**Notas**
+
+- Cada de uno de estos elementos no solo debe contener el código y el resultado, también debe contener el análisis respectivo.
+
+- Cada elemento debe ser una sección del reporte.Favor utilizar la siguiente [plantilla](https://github.com/DFJL/Datasets/blob/master/lightTemplate.Rmd), para su reporte .Rmd
+Solamente copie y pegue la plantilla y comience a trabajar desde ahí.
+
+
+
+```{r load0,eval=FALSE,include=FALSE}
+
+
+titanic <- read.csv("https://raw.githubusercontent.com/DFJL/Datasets/master/titanic.csv",sep= ",")
+
+```
+
+

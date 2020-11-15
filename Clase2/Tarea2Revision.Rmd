@@ -1,0 +1,45 @@
+---
+title: "Revisión tarea 2"
+author: "Felipe Jiménez"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output: 
+  pdf_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r puntaje, include=FALSE}
+
+calif<- c(100,100,100,100,100,60,100)
+
+
+bonus<- 0
+
+ajuste<-0
+
+```
+
+**Estudiantes**
+  
+- Francisco Guerrero
+
+*Tabla de revisión* La nota es el promedio de todos los ejercicios + bonus - ajuste.
+  
+  | Ejercicio      | Calificación | Detalle     |
+  | :----:        |    :----:   |          :--- |
+  | 1     | `r calif[1]`       | ok |
+  | 2 | `r calif[2]`      | ok     |
+  | 3  | `r calif[3]`    | ok |
+  | 4 | `r calif[4]`      | ok   |
+  | 5 | `r calif[5]`      | ok   |
+  | 6 | `r calif[6]`      | Mejorar el análisis   |
+  | 7 | `r calif[7]`      | ok   |
+  | Ajuste  | `r ajuste `      | Me parece que omitió incluir a sus compañeros.Si no los ponen yo no tengo manera de saber si siguen o no, o de cuál grupo son, además de que pierden puntos por no seguir instrucciones.El reporte también tiene cosas de los ejemplos que no corresponde a esta  tarea. |
+  | *Calificación*  | **`r round(mean(calif),2)+bonus-ajuste `**      |      |
+  
+  
+  

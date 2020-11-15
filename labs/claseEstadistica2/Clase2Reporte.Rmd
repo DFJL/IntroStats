@@ -1,0 +1,94 @@
+---
+title: "Reporte de Clase Número 2"
+author: "Felipe Jiménez"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Instrucciones
+
+- Genere un documento R markdown para resolver los ejercicios.
+- En su documento R markdown, incluya como texto el enunciado del ejercicio y en el chunk incluya el código y los resultados.
+
+- Suba a classroom únicamente el documento renderizado con los las funciones requeridas y resultados (impresos en el reporte) para resolver los ejercicios.
+
+# Ejercicios
+
+1- Cargue el archivo `realEstatedata.csv` proveído por el profesor.Pongale el nombre que usted desee.
+
+```{r,include=FALSE}
+
+wd <- "/cloud/project/Clase1"
+setwd(wd)
+
+library(readr)
+library(dplyr)
+# Crea un nuevo objeto en R, leyendo el archivo .csv ubicado en el WD.
+df <- read.csv("realEstatedata.csv",sep = ";") %>%
+  mutate(precio= ifelse(precio>5000000,precio/610,precio))
+
+glimpse(df)
+
+write_delim(df,"realEstatedata2.csv",delim = ";")
+
+```
+
+
+2- Guarde un nuevo dataframe filtrando solamente por categoría casas(utilice dplyr para fitrar).
+
+```{r, include=FALSE}
+
+library(dplyr)
+
+dfCasas <- df %>% 
+  filter(categoria=="Casas")
+
+dfCasas
+
+```
+
+
+Para las variables *precio* y *m2_de_construccion* realice lo siguiente:
+
+3- Obtenga la desviación estándar de ambas variables.Interprete.
+
+```{r desvest,include=FALSE}
+
+sdPrecio<- sd(df$precio,na.rm = T)
+
+sdSize<- sd(df$m2_de_construccion,na.rm = T)
+
+sdPrecio;sdSize
+
+```
+
+
+4- Obtenga un resumen de los tipos de datos del dataframe original, en el que muestre que tipo de variable es cada columna
+
+
+```{r str,include=FALSE}
+
+glimpse(df)
+```
+
+
+3- Basado en el resultado anterior, indique cuáles variables no tienen el tipo correcto(por ejemplo su naturaleza es numérica y R los interpreta como fct o str).
+
+4- Opcional(Puntos extra): Convierta la variable *piso_numero* a su formato correcto( guarde en un nuevo dataframe y muestre el resultado).
+
+```{r as, include=FALSE}
+
+df2<- df %>%
+  mutate(piso_numero=as.double(piso_numero))
+
+glimpse(df2)
+
+```
+
+

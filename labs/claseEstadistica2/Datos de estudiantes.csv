@@ -1,0 +1,15 @@
+﻿"Respuesta_número","profesion","empresa","genero","aplicacion_trabajo","conocimiento_estadistica","conocimiento_r","dias_teletrabajo","distancia_casa_trabajo","distancia_trabajo_casa","entusiasmo","provincia","temas"
+1,"Soy un Ingeniero Forestal de TEC","LanguageLine Solutions",masculino,1,3,3,0,50,75,5,Cartago,R
+2,"Analista de Datos",Tigo,femenino,4,3,2,3,120,120,4,"San Jose120","proyecciones complejas de datos :)"
+3,Economista-Administradora,"Banco Nacional de Costa Rica",femenino,5,2,2,5,30,30,5,Heredia,N/A
+4,"Administradora con énfasis en Banca y Finanzas","Banco Nacional de Costa Rica",femenino,4,3,3,5,"60 minutos","60 minutos",5,"San Jose","Ya que hace tiempo no llevo estadística, me gustaría abarcar lo máximo que se pueda del tema."
+5,"Data Scientist",Covance,femenino,5,4,3,5,10,10,5,"San Jose",Probabilidad
+6,"Farmacéutico y administrador","Clínica de especialidades",masculino,5,3,3,0,60,60,5,"San José",Forecasting
+7,"Enseñanza de la Matemática","Actualmente estoy desempleada",femenino,1,3,3,0,Ninguno,Ninguno,4,Cartago,Probabilidad
+8,"Administración de Empresas","Banco Popular",masculino,3,2,1,5,40,60,5,"San Jose","La parte de los gráficos, vimos algo muy por encima el curso pasado, pero estéticamente me gustaria ver si hay una mejor manera de visualizarlos."
+9,administracion,desempleado,masculino,1,3,2,0,n/a,n/a,3,cartago,"ni idea"
+10,Estudiante,"No aplica",femenino,1,1,2,4,"No aplica","No aplica",4,Heredia,"No tengo muchos conocimientos en estadística, por lo que primero me gustaría ver qué temas se van a abordar."
+11,Informatica,Eurofins,masculino,2,1,2,5,"40 minutos",40,5,"San Jose","Los modelos de predicción, y modelos análisis de datos."
+12,"Turismo y Hoteleria",UPS,masculino,3,3,2,5,45,75,5,"San Jose","Consejos para analizar datos de realidad nacional, INEC, Programa Estado de la Nacion, OCDE, Observatorios de violencia... Entre otros."
+13,Administrador,"Ministerio de Hacienda",masculino,5,2,2,3,40,35,5,Heredia,"Modelo Predictivo"
+14,"Ingeniero Mecanico","No trabajo",masculino,1,3,2,0,ninguna,ninguna,5,"Montes de Oca, San Jose","La interpretación de los datos"

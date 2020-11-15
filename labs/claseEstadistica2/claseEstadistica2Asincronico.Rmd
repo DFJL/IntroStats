@@ -1,0 +1,71 @@
+---
+title: "Clase 2"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+theme: united
+---
+
+
+```{r setup, include=FALSE}
+
+library(learnr)
+
+knitr::opts_chunk$set(echo = TRUE)
+tutorial_options(exercise.timelimit = 120)
+
+
+covidCantones <- read.csv("https://raw.githubusercontent.com/DFJL/Datasets/master/covidCantones.csv",sep= ";")
+
+```
+
+![](images/logo.png)
+
+
+#Lectura de archivo
+
+```{r lectura,warning=FALSE,message=FALSE,exercise=TRUE}
+
+datos<- read_csv("https://raw.githubusercontent.com/DFJL/Datasets/master/datosEstudiantes")
+
+glimpse(datos)
+
+```
+
+
+```{r dplyr2,exercise=TRUE,warning=FALSE,message=FALSE}
+
+library(dplyr)
+
+datosAgrupado <- datos %>% # Primero creamos un dataframe copia del df cargado.
+  group_by(dias_teletrabajo) %>%  # Agrupamos por la variable de interes para sumarizar
+  summarise(CasesT= n()) %>%
+  mutate(PCases= CasesT/sum(CasesT)*100) %>%
+  arrange(dias_teletrabajo)
+  
+datosAgrupado
+
+```
+
+
+**Su Turno**
+
+*Utilizando el mismo dataset y el paquete dplyr, cree un nuevo dataframe y agrupe por cantones y luego sumarice para crear el total de casos por cantón.*
+
+```{r ejercicio4, exercise=TRUE,exercise.lines = 25}
+
+#Aqui su código
+
+```
+
+```{r ejercicio4-hint,exercise.lines = 20}
+
+#Utilice $ para acceder a las variables del data.frame.
+
+# Utilice la función summarize
+
+```
+
+

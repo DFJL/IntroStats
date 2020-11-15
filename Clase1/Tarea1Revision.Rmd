@@ -1,0 +1,44 @@
+---
+title: "Revisión tarea 1"
+author: "Felipe Jiménez"
+date: '`r format(Sys.time(), "%d %B, %Y")`'
+output: 
+  pdf_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r puntaje, include=FALSE}
+
+calif<- c(100,100,50,70,70,50)
+
+
+bonus<- 0
+
+ajuste<-8
+
+```
+
+**Estudiantes**
+  
+- Gloriana M.
+
+*Tabla de revisión* La nota es el promedio de todos los ejercicios + bonus - ajuste.
+  
+  | Ejercicio      | Calificación | Detalle     |
+  | :----:        |    :----:   |          :--- |
+  | 1     | `r calif[1]`       | ok  |
+  | 2 | `r calif[2]`      | ok     |
+  | 3  | `r calif[3]`    | No hace lo que se solicita y eso que di mas tiempo.  |
+  | 4 | `r calif[4]`      | No hace lo que se solicita y eso que di mas tiempo.   |
+  | 5     | `r calif[5]`       | No hace lo que se solicita y eso que di mas tiempo.   |
+  | 6     | `r calif[6]`       | Reforzar concepto de cuartiles.   |
+  | Ajuste  | `r ajuste `      | Entrega fuera de plazo(-5). Ejercicios no enumerados(-3)   |
+  | *Calificación*  | **`r round(mean(calif),2)+bonus-ajuste `**      |      |
+  
+  
+  
